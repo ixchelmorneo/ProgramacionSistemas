@@ -53,6 +53,27 @@ char cadena[30];
 
 %%
 
+//3 OPERADORES ARITMETICOS,LOGICOS Y RELACIONALES
+
+"+"        					{ strcpy(cadena,yytext);  return SUMA;  }
+"/"                         { strcpy(cadena,yytext);  return DIVICION;  }
+"*"        					{ strcpy(cadena,yytext);  return MULTIPLICACION;  }
+"/"                         { strcpy(cadena,yytext);  return RESTA;  }
+"mod"        					{ strcpy(cadena,yytext);  return MODULO;  }
+"<"                         { strcpy(cadena,yytext);  return MENOR;  }
+">"         					{ strcpy(cadena,yytext);   return MAYOR;   }
+"<="       				    { strcpy(cadena,yytext);  return LEQ;  }
+">="         					{ strcpy(cadena,yytext);   return MAYORIGUAL
+"=="       				    { strcpy(cadena,yytext);  return IGUAL;  }
+"!="         					{ strcpy(cadena,yytext);   return DIFERENTE;   }
+"&&"       				    { strcpy(cadena,yytext);  return AND;  }
+"||"         					{ strcpy(cadena,yytext);   return OR;   }
+"!"       				    { strcpy(cadena,yytext);  return NEGACION;  }
+
+
+
+
+
 "+"        					{ strcpy(cadena,yytext);  return SUMA;  }
 "-"          					{ strcpy(cadena,yytext);  return RESTA;  }
 "<="       				    { strcpy(cadena,yytext);  return LEQ;  }
