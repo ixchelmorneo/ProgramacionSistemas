@@ -127,9 +127,10 @@ char cadena[30];
 "++"						{ strcpy(cadena,yytext);  return  INCREMENTO;  }					
 "--"						{ strcpy(cadena,yytext);  return  DECREMENTO;  }
 [0-9]+						{ strcpy(cadena,yytext);  return  NUMEROENTERO;  }
+
 [\t]                     	{/*Solo ignorar */}
 [\n]						{/*Solo ignorar */}
-
+#[a-zA-Z0-9_%#&¿?¡!@\.]*	{/*Solo ignorar */}
 
 
 [a-z][a-z0-9_]*  			{ strcpy(cadena,yytext);  return IDVARIABLE;  }	
