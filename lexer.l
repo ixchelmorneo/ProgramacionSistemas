@@ -1,53 +1,65 @@
 %{
 	#include <string.h>
 enum  {
-	
-   SI = 258 // KEYWORD O PALABRA RESERVADA SI
-   ENTONCES = 259 // KEYWORD O PALABRA RESERVADA ENTONCE
-   OTRO = 260 // KEYWORD O PALABRA RESERVADA OTRO
-   MIENTRAS = 261 // KEYWORD O PALABRA RESERVADA MIENTRAS
-   PARA = 262 // KEYWORD O PALABRA RESERVADA PARA
-   HASTA = 263 // KEYWORD O PALABRA RESERVADA HASTA
-   HAZ = 264 // KEYWORD O PALABRA RESERVADA HAZ
-   LEER = 265 // KEYWORD O PALABRA RESERVADA LEER
-   IMPRIMIR = 266 // KEYWORD O PALABRA RESERVADA IMPRIMIR
-   PROGRAMA = 267 // KEYWORD O PALABRA RESERVADA PROGRAMA
-   CONSTANTE = 268 // KEYWORD O PALABRA RESERVADA CONSTANTE
-   ENTERO = 269 // KEYWORD O PALABRA RESERVADA ENTERO
-   FLOTANTE = 270 // KEYWORD O PALABRA RESERVADA FLOTANTE
-   CARACTER = 271 // KEYWORD O PALABRA RESERVADA CARACTER
-   CADENA = 272 // KEYWORD O PALABRA RESERVADA CADENA
-   ARREGLO = 273 // KEYWORD O PALABRA RESERVADA ARREGLO
-   FUNCION = 274 // KEYWORD O PALABRA RESERVADA FUNCION
-   POTENCIA = 275 // KEYWORD O PALABRA RESERVADA POTENCIA
-   SQRT = 276 // KEYWORD O PALABRA RESERVADA SQRT
-   SENO = 277 // KEYWORD O PALABRA RESERVADA SENO
-   COSENO=278 // KEYWORD O PALABRA RESERVADA COSENO
-   TANGENTE=279 // KEYWORD O PALABRA RESERVADA TANGENTE
-   LOG=280 // KEYWORD O PALABRA RESERVADA LOG
-   EXP=281 // KEYWORD O PALABRA RESERVADA EXP
-   SUMA=282 // Operador aritmético
-   RESTA=283 // Operador aritmético
-   MULTIPLICACION=284 // Operador aritmético
-   DIVISION=285 // Operador aritmético
-   MODULO=286 // Operador aritmético
-   MENORQUE=287 // Operador relacional
-   MAYORQUE=288 //Operador relacional
-   MENORIGUAL=289 //Operador relacional
-   MAYORIGUAL=290 //Operador relacional
-   EQUALS=291 //Operador relacional
-   NOTEQUALS=292 //Operador relacional
-   AND=293 //Operador relacional
-   OR=294 //Operador relacional
-   NOT=295 //Operador relacional
-   SUMAASIG=296 //Operador asignacion
-   RESASIG=297 //Operador asignacion
-   MULTASIG=298 //Operador asignacion
-   MODASIG=299 //Operador asignacion
-   INCREMENTO=300 //Operador asignacion
-   DECREMENTO=301 //Operador asignacion
-   NUMEROENTERO=302
-   IDVARIABLE=303
+
+   PUNTO=248,
+   DOSPUNTOS=249,
+   PUNTOCOMA=250,
+   COMA=251,
+   PARENTESISABRE=252,
+   PARENTESISCIERRA=253,
+   CORCHETEABRE=254,
+   CORCHETECIERRA=255,
+   LLAVEABRE=256,
+   LLAVECIERRA=257,
+   SI = 258, // KEYWORD O PALABRA RESERVADA SI
+   ENTONCES = 259, // KEYWORD O PALABRA RESERVADA ENTONCE
+   OTRO = 260,// KEYWORD O PALABRA RESERVADA OTRO
+   MIENTRAS = 261, // KEYWORD O PALABRA RESERVADA MIENTRAS
+   PARA = 262, // KEYWORD O PALABRA RESERVADA PARA
+   HASTA = 263, // KEYWORD O PALABRA RESERVADA HASTA
+   HAZ = 264, // KEYWORD O PALABRA RESERVADA HAZ
+   LEER = 265, // KEYWORD O PALABRA RESERVADA LEER
+   IMPRIMIR = 266, // KEYWORD O PALABRA RESERVADA IMPRIMIR
+   PROGRAMA = 267, // KEYWORD O PALABRA RESERVADA PROGRAMA
+   CONSTANTE = 268, // KEYWORD O PALABRA RESERVADA CONSTANTE
+   ENTERO = 269, // KEYWORD O PALABRA RESERVADA ENTERO
+   FLOTANTE = 270, // KEYWORD O PALABRA RESERVADA FLOTANTE
+   CARACTER = 271, // KEYWORD O PALABRA RESERVADA CARACTER
+   CADENA = 272, // KEYWORD O PALABRA RESERVADA CADENA
+   ARREGLO = 273, // KEYWORD O PALABRA RESERVADA ARREGLO
+   FUNCION = 274, // KEYWORD O PALABRA RESERVADA FUNCION
+   POTENCIA = 275, // KEYWORD O PALABRA RESERVADA POTENCIA
+   SQRT = 276, // KEYWORD O PALABRA RESERVADA SQRT
+   SENO = 277, // KEYWORD O PALABRA RESERVADA SENO
+   COSENO=278, // KEYWORD O PALABRA RESERVADA COSENO
+   TANGENTE=279, // KEYWORD O PALABRA RESERVADA TANGENTE
+   LOG=280, // KEYWORD O PALABRA RESERVADA LOG
+   EXP=281, // KEYWORD O PALABRA RESERVADA EXP
+   SUMA=282, // Operador aritmético
+   RESTA=283, // Operador aritmético
+   MULTIPLICACION=284, // Operador aritmético
+   DIVISION=285, // Operador aritmético
+   MODULO=286, // Operador aritmético
+   MENORQUE=287, // Operador relacional
+   MAYORQUE=288, //Operador relacional
+   MENORIGUAL=289, //Operador relacional
+   MAYORIGUAL=290, //Operador relacional
+   EQUALS=291, //Operador relacional
+   NOTEQUALS=292, //Operador relacional
+   AND=293, //Operador relacional
+   OR=294, //Operador relacional
+   NOT=295, //Operador relacional
+   SUMAASIG=296, //Operador asignacion
+   RESASIG=297, //Operador asignacion
+   MULTASIG=298, //Operador asignacion
+   MODASIG=299, //Operador asignacion
+   INCREMENTO=300, //Operador asignacion
+   DECREMENTO=301, //Operador asignacion
+   NUMEROENTERO=302,//
+   NUMEROFLOTANTE=303,//
+   IDVARIABLE=304,//
+   IDFUNCION=305,//
 };
 
 int yylval;
@@ -90,6 +102,7 @@ char cadena[30];
 "/"							{ strcpy(cadena,yytext);  return DIVISION;  }	
 
 [a-z][a-z0-9_]*  			{ strcpy(cadena,yytext);  return IDVARIABLE;  }	
+[A-z][a-zA-Z0-9_]*			{ strcpy(cadena,yytext);  return IDFUNCION;  }	
 			
 
 
@@ -97,7 +110,7 @@ char cadena[30];
 
 
 
-
+/*
 "+"        					{ strcpy(cadena,yytext);  return SUMA;  }
 "-"          					{ strcpy(cadena,yytext);  return RESTA;  }
 "<="       				    { strcpy(cadena,yytext);  return LEQ;  }
@@ -112,7 +125,7 @@ char cadena[30];
 [0-9]+    				    { yylval = atoi(yytext);  return ENTERO;    }
 [a-zA-Z]+                { strcpy(cadena,yytext);  return ERROR;    }
 \n							{/* Solo ignorar */}
-[\t ()]                     {/*Solo ignorar */}
+[\t ()]                     {/*Solo ignorar */}*/
 
 
 
@@ -132,17 +145,17 @@ main(int argc, char **argv)
 		deberá tener la información siguiente:
 		if 	id_var    263
 		*/
-		if(tok >= IF && tok <= READ)
+		
+		if(tok>=SI && tok <=EXP)
 			printf("\n%s	 keyword   %d", cadena, tok);
-		if(tok >= SUMA && tok <= RESTA)
-			printf("\n%s	 op_arit   %d", cadena, tok);
-		if(tok == ENTERO)
-			printf("\n%d	 int   %d", yylval, tok);
-		if(tok >= LEQ && tok <= MAYOR)
-			printf("\n%s	 op_rel   %d", cadena, tok);
-		if(tok == ERROR)
-			printf("\n%s Palabra no reconocida",cadena);
-		printf("\n");
+
+		if(tok == IDVARIABLE)
+			printf("\n%s IDENTIFICADOR VARIABLE",cadena);
+
+		if(tok == IDFUNCION)
+			printf("\n%s IDENTIFICADOR FUNCION",cadena);
+
+
 	}
 }
 
