@@ -49,17 +49,18 @@ enum  {
    NOTEQUALS=292, //Operador relacional
    AND=293, //Operador relacional
    OR=294, //Operador relacional
-   NOT=295, //Operador relacional
+   NEGACIONLOGICA=295, //Operador relacional
    SUMAASIG=296, //Operador asignacion
    RESASIG=297, //Operador asignacion
    MULTASIG=298, //Operador asignacion
-   MODASIG=299, //Operador asignacion
-   INCREMENTO=300, //Operador asignacion
-   DECREMENTO=301, //Operador asignacion
-   NUMEROENTERO=302,//
-   NUMEROFLOTANTE=303,//
-   IDVARIABLE=304,//
-   IDFUNCION=305,//
+   DIVASIG=299 ////Operador asignacion
+   MODASIG=300, //Operador asignacion
+   INCREMENTO=301, //Operador asignacion
+   DECREMENTO=302, //Operador asignacion
+   NUMEROENTERO=303,//
+   NUMEROFLOTANTE=304,//
+   IDVARIABLE=305,//
+   IDFUNCION=306,//
 };
 
 int yylval;
@@ -72,9 +73,17 @@ char cadena[30];
 
 //OPERADORES ARITMETICOS,LOGICOS Y RELACIONALES
 
+"."							{ strcpy(cadena,yytext);  return PUNTO;}	
+":"							{ strcpy(cadena,yytext);  return DOSPUNTOS;}
+";"							{ strcpy(cadena,yytext);  return PUNTOCOMA; }
+","							{ strcpy(cadena,yytext);  return COMA; }
+"("							{ strcpy(cadena,yytext);  return PARENTESISABRE; }
+")"							{ strcpy(cadena,yytext);  return PARENTESISCIERRA; }	
+"["							{ strcpy(cadena,yytext);  return LLAVEABRE; }
+"]"							{ strcpy(cadena,yytext);  return LLAVECIERRA; }
 "if"						{ strcpy(cadena,yytext);  return SI;  }	
 "else"						{ strcpy(cadena,yytext);  return ENTONCES;  }
-"other"							{ strcpy(cadena,yytext);  return OTRO;  }
+"other"						{ strcpy(cadena,yytext);  return OTRO;  }
 "while"						{ strcpy(cadena,yytext);  return MIENTRAS;  }
 "for"						{ strcpy(cadena,yytext);  return PARA;  }
 "for"						{ strcpy(cadena,yytext);  return HAZ;  }
@@ -86,9 +95,9 @@ char cadena[30];
 "int"						{ strcpy(cadena,yytext);  return ENTERO;  }
 "float"						{ strcpy(cadena,yytext);  return FLOTANTE;  }
 "char"						{ strcpy(cadena,yytext);  return CARACTER;  }	
-[""-a-za-Z-""]				{ strcpy(cadena,yytext);  return CADENA;  }	
-""						{ strcpy(cadena,yytext);  return ARREGLO;  }	
-""						{ strcpy(cadena,yytext);  return FUNCION;  }
+"String"					{ strcpy(cadena,yytext);  return CADENA;  }	
+""							{ strcpy(cadena,yytext);  return ARREGLO;  }	
+"function"					{ strcpy(cadena,yytext);  return FUNCION;  }
 "pow"						{ strcpy(cadena,yytext);  return POTENCIA;  }	
 "sqrt"						{ strcpy(cadena,yytext);  return SQRT;  }	
 "sin"						{ strcpy(cadena,yytext);  return SENO;  }	
@@ -100,6 +109,27 @@ char cadena[30];
 "-"          				{ strcpy(cadena,yytext);  return RESTA;  }	
 "*"							{ strcpy(cadena,yytext);  return MULTIPLICACION;  }	
 "/"							{ strcpy(cadena,yytext);  return DIVISION;  }	
+"%"							{ strcpy(cadena,yytext);  return MODULO;  }
+"<"							{ strcpy(cadena,yytext);  return MENORQUE;  }
+">"							{ strcpy(cadena,yytext);  return MAYORQUE;  }
+"<="						{ strcpy(cadena,yytext);  return  MENORIGUAL;  }
+">="						{ strcpy(cadena,yytext);  return  MAYORIGUAL;  }
+"=="						{ strcpy(cadena,yytext);  return  EQUALS;  }
+"!="						{ strcpy(cadena,yytext);  return  NOTEQUALS;  }
+"&&"						{ strcpy(cadena,yytext);  return  AND;  }
+"||"						{ strcpy(cadena,yytext);  return  OR;  }
+"!"							{ strcpy(cadena,yytext);  return  NEGACIONLOGICA;  }
+"+="						{ strcpy(cadena,yytext);  return  SUMAASIG;  }
+"-="						{ strcpy(cadena,yytext);  return  RESASIG;  }
+"*="						{ strcpy(cadena,yytext);  return  MULTSIG;  }
+"=/"						{ strcpy(cadena,yytext);  return  DIVASIG;  }												
+"mod="						{ strcpy(cadena,yytext);  return  MODASIG;  }						
+"++"						{ strcpy(cadena,yytext);  return  INCREMENTO;  }					
+"--"						{ strcpy(cadena,yytext);  return  DECREMENTO;  }
+[0-9]+						{ strcpy(cadena,yytext);  return  NUMEROENTERO;  }
+
+
+
 
 [a-z][a-z0-9_]*  			{ strcpy(cadena,yytext);  return IDVARIABLE;  }	
 [A-z][a-zA-Z0-9_]*			{ strcpy(cadena,yytext);  return IDFUNCION;  }	
@@ -145,9 +175,13 @@ main(int argc, char **argv)
 		deberá tener la información siguiente:
 		if 	id_var    263
 		*/
+
+
+		if(tok>=PUNTO && tok <=LLAVECIERRA)
+			printf("\n%s	 SIGNO PUNTUACION   %d", cadena, tok);
 		
 		if(tok>=SI && tok <=EXP)
-			printf("\n%s	 keyword   %d", cadena, tok);
+			printf("\n%s	 PALABRA RESERVADA   %d", cadena, tok);
 
 		if(tok == IDVARIABLE)
 			printf("\n%s IDENTIFICADOR VARIABLE",cadena);
