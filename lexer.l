@@ -127,7 +127,8 @@ char cadena[30];
 "++"						{ strcpy(cadena,yytext);  return  INCREMENTO;  }					
 "--"						{ strcpy(cadena,yytext);  return  DECREMENTO;  }
 [0-9]+						{ strcpy(cadena,yytext);  return  NUMEROENTERO;  }
-
+[\t]                     	{/*Solo ignorar */}
+[\n]						{/*Solo ignorar */}
 
 
 
