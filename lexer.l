@@ -122,15 +122,16 @@ char cadena[30];
 "mod="						{ strcpy(cadena,yytext);  return  MODASIG;  }						
 "++"						{ strcpy(cadena,yytext);  return  INCREMENTO;  }					
 "--"						{ strcpy(cadena,yytext);  return  DECREMENTO;  }
-[0-9]+						{ strcpy(cadena,yytext);  return  NUMEROENTERO;  }
+[0-9]+						{ yylval = atoi(yytext); return  NUMEROENTERO;  }
+[0-9]+[.][0-9]+				{ yylval = atof(yytext);  return  NUMEROFLOTANTE;  }
 
 [\t]                     	{/*Solo ignorar */}
 [\n]						{/*Solo ignorar */}
-#[a-zA-Z0-9_%#&¿?¡!@\.]*	{/*Solo ignorar */}
+#.*							{/*Solo ignorar */}
 
 
-[a-z][a-z0-9_]*  			{ strcpy(cadena,yytext);  return IDVARIABLE;  }	
-[A-z][a-zA-Z0-9_]*			{ strcpy(cadena,yytext);  return IDFUNCION;  }
+[a-z][a-zA-Z0-9_]*  	{ strcpy(cadena,yytext);  return IDVARIABLE;  }	
+[A-Z][a-zA-Z0-9_]*			{ strcpy(cadena,yytext);  return IDFUNCION;  }
 %%
 
 
@@ -157,35 +158,36 @@ main(int argc, char **argv)
 		if(tok >= SI && tok <= EXPONENTE)
 			printf("\n%s	 PALABRA RESERVADA   %d", cadena, tok);
 
+		if(tok >= SI && tok <= EXPONENTE)
+			printf("\n%s	 PALABRA RESERVADA   %d", cadena, tok);
+
+
+		if(tok >= SUMA && tok <= MODULO)
+			printf("\n%s	 OPERADOR ARITMETICO   %d", cadena, tok);
+
+		if(tok >= MENORQUE && tok <= NOTEQUALS)
+			printf("\n%s	 OPERADOR RELACIONAL   %d", cadena, tok);			
+
+		if(tok >= AND && tok <= NEGACIONLOGICA)
+			printf("\n%s	 OPERADOR LOGICO   %d", cadena, tok);
+
+		if(tok==NUMEROENTERO)	
+		printf("\n%d	 int   %d", yylval, tok);
+
+		if(tok==NUMEROFLOTANTE)	
+		printf("\n%f	 float   %d",yylval, tok);
+
 		if(tok == IDVARIABLE)
 			printf("\n%s IDENTIFICADOR VARIABLE",cadena);
 
 		if(tok == IDFUNCION)
 			printf("\n%s IDENTIFICADOR FUNCION",cadena);
 
+		printf("\n");	
+
 
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
