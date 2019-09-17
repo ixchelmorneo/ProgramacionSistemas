@@ -77,8 +77,10 @@ char cadena[30];
 ","							{ strcpy(cadena,yytext);  return COMA; }
 "("							{ strcpy(cadena,yytext);  return PARENTESISABRE; }
 ")"							{ strcpy(cadena,yytext);  return PARENTESISCIERRA; }	
-"["							{ strcpy(cadena,yytext);  return LLAVEABRE; }
-"]"							{ strcpy(cadena,yytext);  return LLAVECIERRA; }
+"["							{ strcpy(cadena,yytext);  return  CORCHETEABRE ; }
+"]"							{ strcpy(cadena,yytext);  return CORCHETECIERRA; }
+"{"							{ strcpy(cadena,yytext);  return LLAVEABRE; }
+"}"							{ strcpy(cadena,yytext);  return LLAVECIERRA; }	
 "if"						{ strcpy(cadena,yytext);  return SI;  }	
 "else"						{ strcpy(cadena,yytext);  return ENTONCES;  }
 "other"						{ strcpy(cadena,yytext);  return OTRO;  }
@@ -140,7 +142,12 @@ char cadena[30];
 
 main(int argc, char **argv)
 {
+
+	FILE *fp;
+	fp= fopen("tabla_simbolos.txt","w");
 	int tok;
+	printf("\nToken\t\tpalabra_clave\t\tcodigo_numerico\n");
+	fprintf(fp,"\nToken\t\t palabra_clave\t\tcodigo_numerico\n");
 	while(tok = yylex()) {
 		/*
 		Si el lexema está dentro de este rango de
@@ -154,44 +161,61 @@ main(int argc, char **argv)
 
 
 
-		if(tok >= PUNTO && tok <= LLAVECIERRA)
-			printf("\n%s	 SIGNO PUNTUACION   %d", cadena, tok);
+		if(tok >= PUNTO && tok <= LLAVECIERRA){
+			printf("\n%s\t\tSIGNO PUNTUACION\t\t%d", cadena, tok);
+			fprintf(fp,"\n%s\t\tSIGNO PUNTUACION\t\t%d", cadena, tok);
+		}
 		
-		if(tok >= SI && tok <= EXPONENTE)
-			printf("\n%s	 PALABRA RESERVADA   %d", cadena, tok);
+		if(tok >= SI && tok <= EXPONENTE){
+			printf("\n%s\t\tPALABRA RESERVADA\t\t%d", cadena, tok);
+			fprintf(fp,"\n%s\t\tPALABRA RESERVADA\t\t%d", cadena, tok);
+		}
+
+		if(tok >= SUMA && tok <= MODULO){
+			printf("\n%s\t\tOPERADOR ARITMETICO\t\t%d", cadena, tok);
+			fprintf(fp,"\n%s\t\tPALABRA RESERVADA\t\t%d", cadena, tok);
+		}
+		if(tok >= MENORQUE && tok <= NOTEQUALS){
+			printf("\n%s\t\tOPERADOR RELACIONAL\t\t%d", cadena, tok);
+			fprintf(fp,"\n%s\t\tOPERADOR RELACIONAL\t\t%d", cadena, tok);
+		}				
+
+		if(tok >= AND && tok <= NEGACIONLOGICA){
+			printf("\n%s\t\tOPERADOR LOGICO\t\t%d", cadena, tok);
+			fprintf(fp,"\n%s\t\tOPERADOR LOGICO\t\t%d", cadena, tok);
+		}	
+
+		if(tok >=  ASIG && tok <= DECREMENTO){
+			printf("\n%s\t\tOPERADOR ASIGNACION\t\t%d", cadena, tok);
+			fprintf(fp,"\n%s\t\tOPERADOR ASIGNACION\t\t%d", cadena, tok);
+		}		
 
 
-		if(tok >= SUMA && tok <= MODULO)
-			printf("\n%s	 OPERADOR ARITMETICO   %d", cadena, tok);
+		if(tok==NUMEROENTERO){	
+		printf("\n%d\t\tint\t\t%d", yylval, tok);
+		fprintf(fp,"\n%d\t\tint\t\t%d", yylval, tok);
+		}
 
-		if(tok >= MENORQUE && tok <= NOTEQUALS)
-			printf("\n%s	 OPERADOR RELACIONAL   %d", cadena, tok);			
-
-		if(tok >= AND && tok <= NEGACIONLOGICA)
-			printf("\n%s	 OPERADOR LOGICO   %d", cadena, tok);
-
-		if(tok >=  ASIG && tok <= DECREMENTO)
-			printf("\n%s	 OPERADOR ASIGNACION   %d", cadena, tok);	
-
-
-		if(tok==NUMEROENTERO)	
-		printf("\n%d	 int   %d", yylval, tok);
-
-		if(tok==NUMEROFLOTANTE)	
-		printf("\n%f	 float   %d",yylval, tok);
-
-		if(tok == IDVARIABLE)
+		if(tok==NUMEROFLOTANTE)	{
+		printf("\n%f\t\tfloat\t\t%d",yylval, tok);
+		fprintf(fp,"\n%f\t\tfloat\t\t%d",yylval, tok);
+		}
+		if(tok == IDVARIABLE){
 			printf("\n%s IDENTIFICADOR VARIABLE",cadena);
+			fprintf(fp,"\n%s IDENTIFICADOR VARIABLE",cadena);
+		}
 
-		if(tok == IDFUNCION)
+		if(tok == IDFUNCION){
 			printf("\n%s IDENTIFICADOR FUNCION",cadena);
-
-		printf("\n");	
+			fprintf(fp,"\n%s IDENTIFICADOR FUNCION",cadena);
+		}
+		printf("\n");
+		fprintf(fp,"\n");		
 
 
 	}
+	fclose(fp);
 }
-
 
 
 
