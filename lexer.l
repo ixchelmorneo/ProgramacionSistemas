@@ -127,7 +127,7 @@ char cadena[30];
 "++"						{ strcpy(cadena,yytext);  return  INCREMENTO;  }					
 "--"						{ strcpy(cadena,yytext);  return  DECREMENTO;  }
 [0-9]+						{ yylval = atoi(yytext); return  NUMEROENTERO;  }
-[0-9]+[.][0-9]+				{ yylval = atof(yytext);  return  NUMEROFLOTANTE;  }
+[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?   { strcpy(cadena,yytext);  return  NUMEROFLOTANTE;  }
 
 [\t]                     	{/*Solo ignorar */}
 [\n]						{/*Solo ignorar */}
@@ -197,8 +197,8 @@ main(int argc, char **argv)
 		}
 
 		if(tok==NUMEROFLOTANTE)	{
-		printf("\n%f\t\tfloat\t\t%d",yylval, tok);
-		fprintf(fp,"\n%f\t\tfloat\t\t%d",yylval, tok);
+		printf("\n%s\t\tfloat\t\t%d",cadena, tok);
+		fprintf(fp,"\n%s\t\tfloat\t\t%d",cadena, tok);
 		}
 		if(tok == IDVARIABLE){
 			printf("\n%s IDENTIFICADOR VARIABLE",cadena);
