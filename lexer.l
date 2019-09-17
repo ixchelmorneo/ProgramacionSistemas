@@ -1,7 +1,6 @@
 %{
 	#include <string.h>
 enum  {
-
    PUNTO=248,
    DOSPUNTOS=249,
    PUNTOCOMA=250,
@@ -35,7 +34,7 @@ enum  {
    COSENO=278, // KEYWORD O PALABRA RESERVADA COSENO
    TANGENTE=279, // KEYWORD O PALABRA RESERVADA TANGENTE
    LOG=280, // KEYWORD O PALABRA RESERVADA LOG
-   EXP=281, // KEYWORD O PALABRA RESERVADA EXP
+   EXPONENTE=281, // KEYWORD O PALABRA RESERVADA EXP
    SUMA=282, // Operador aritmético
    RESTA=283, // Operador aritmético
    MULTIPLICACION=284, // Operador aritmético
@@ -53,25 +52,23 @@ enum  {
    SUMAASIG=296, //Operador asignacion
    RESASIG=297, //Operador asignacion
    MULTASIG=298, //Operador asignacion
-   DIVASIG=299 ////Operador asignacion
+   DIVASIG=299, ////Operador asignacion
    MODASIG=300, //Operador asignacion
    INCREMENTO=301, //Operador asignacion
    DECREMENTO=302, //Operador asignacion
-   NUMEROENTERO=303,//
-   NUMEROFLOTANTE=304,//
-   IDVARIABLE=305,//
-   IDFUNCION=306,//
+   NUMEROENTERO=303, //NUMERO ENTERO
+   NUMEROFLOTANTE=304,//NUMERO FLOTANTE
+   IDVARIABLE=305, // ID VARIABLE
+   IDFUNCION=306 //ID FUNCION   
 };
 
 int yylval;
 char cadena[30];
-
 %}
 
 
 %%
 
-//OPERADORES ARITMETICOS,LOGICOS Y RELACIONALES
 
 "."							{ strcpy(cadena,yytext);  return PUNTO;}	
 ":"							{ strcpy(cadena,yytext);  return DOSPUNTOS;}
@@ -86,7 +83,6 @@ char cadena[30];
 "other"						{ strcpy(cadena,yytext);  return OTRO;  }
 "while"						{ strcpy(cadena,yytext);  return MIENTRAS;  }
 "for"						{ strcpy(cadena,yytext);  return PARA;  }
-"for"						{ strcpy(cadena,yytext);  return HAZ;  }
 "do"						{ strcpy(cadena,yytext);  return HASTA;  }
 "read"						{ strcpy(cadena,yytext);  return LEER;  }
 "print"						{ strcpy(cadena,yytext);  return IMPRIMIR;  }
@@ -104,7 +100,7 @@ char cadena[30];
 "cos"						{ strcpy(cadena,yytext);  return COSENO;  }	
 "tan"						{ strcpy(cadena,yytext);  return TANGENTE;  }	
 "log"						{ strcpy(cadena,yytext);  return LOG;  }
-"exp"						{ strcpy(cadena,yytext);  return EXP;  }
+"exp"						{ strcpy(cadena,yytext);  return EXPONENTE;  }
 "+"        					{ strcpy(cadena,yytext);  return SUMA;  }
 "-"          				{ strcpy(cadena,yytext);  return RESTA;  }	
 "*"							{ strcpy(cadena,yytext);  return MULTIPLICACION;  }	
@@ -121,7 +117,7 @@ char cadena[30];
 "!"							{ strcpy(cadena,yytext);  return  NEGACIONLOGICA;  }
 "+="						{ strcpy(cadena,yytext);  return  SUMAASIG;  }
 "-="						{ strcpy(cadena,yytext);  return  RESASIG;  }
-"*="						{ strcpy(cadena,yytext);  return  MULTSIG;  }
+"*="						{ strcpy(cadena,yytext);  return  MULTASIG;  }
 "=/"						{ strcpy(cadena,yytext);  return  DIVASIG;  }												
 "mod="						{ strcpy(cadena,yytext);  return  MODASIG;  }						
 "++"						{ strcpy(cadena,yytext);  return  INCREMENTO;  }					
@@ -134,34 +130,9 @@ char cadena[30];
 
 
 [a-z][a-z0-9_]*  			{ strcpy(cadena,yytext);  return IDVARIABLE;  }	
-[A-z][a-zA-Z0-9_]*			{ strcpy(cadena,yytext);  return IDFUNCION;  }	
-			
-
-
-
-
-
-
-/*
-"+"        					{ strcpy(cadena,yytext);  return SUMA;  }
-"-"          					{ strcpy(cadena,yytext);  return RESTA;  }
-"<="       				    { strcpy(cadena,yytext);  return LEQ;  }
-">"         					{ strcpy(cadena,yytext);   return MAYOR;   }
-"if"         				    { strcpy(cadena,yytext);  return IF;  }
-"else"         			    { strcpy(cadena,yytext);  return ELSE;  }
-"while"         			{ strcpy(cadena,yytext);   return WHILE;  }
-"for"        				{ strcpy(cadena,yytext);  return FOR;  }
-"program"         	    { strcpy(cadena,yytext);  return PROGRAM;  }
-"print"                     { strcpy(cadena,yytext);  return PRINT;  }
-"read"                      { strcpy(cadena,yytext);   return READ;  }
-[0-9]+    				    { yylval = atoi(yytext);  return ENTERO;    }
-[a-zA-Z]+                { strcpy(cadena,yytext);  return ERROR;    }
-\n							{/* Solo ignorar */}
-[\t ()]                     {/*Solo ignorar */}*/
-
-
-
+[A-z][a-zA-Z0-9_]*			{ strcpy(cadena,yytext);  return IDFUNCION;  }
 %%
+
 
 
 main(int argc, char **argv)
@@ -179,10 +150,11 @@ main(int argc, char **argv)
 		*/
 
 
-		if(tok>=PUNTO && tok <=LLAVECIERRA)
+
+		if(tok >= PUNTO && tok <= LLAVECIERRA)
 			printf("\n%s	 SIGNO PUNTUACION   %d", cadena, tok);
 		
-		if(tok>=SI && tok <=EXP)
+		if(tok >= SI && tok <= EXPONENTE)
 			printf("\n%s	 PALABRA RESERVADA   %d", cadena, tok);
 
 		if(tok == IDVARIABLE)
