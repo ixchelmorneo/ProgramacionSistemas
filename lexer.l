@@ -49,17 +49,18 @@ enum  {
    AND=293, //Operador relacional
    OR=294, //Operador relacional
    NEGACIONLOGICA=295, //Operador relacional
-   SUMAASIG=296, //Operador asignacion
-   RESASIG=297, //Operador asignacion
-   MULTASIG=298, //Operador asignacion
-   DIVASIG=299, ////Operador asignacion
-   MODASIG=300, //Operador asignacion
-   INCREMENTO=301, //Operador asignacion
-   DECREMENTO=302, //Operador asignacion
-   NUMEROENTERO=303, //NUMERO ENTERO
-   NUMEROFLOTANTE=304,//NUMERO FLOTANTE
-   IDVARIABLE=305, // ID VARIABLE
-   IDFUNCION=306 //ID FUNCION   
+   ASIG=296, // Operador asignacion
+   SUMAASIG=297, //Operador asignacion
+   RESASIG=298, //Operador asignacion
+   MULTASIG=299, //Operador asignacion
+   DIVASIG=300, ////Operador asignacion
+   MODASIG=301, //Operador asignacion
+   INCREMENTO=302, //Operador asignacion
+   DECREMENTO=303, //Operador asignacion
+   NUMEROENTERO=304, //NUMERO ENTERO
+   NUMEROFLOTANTE=305,//NUMERO FLOTANTE
+   IDVARIABLE=306, // ID VARIABLE
+   IDFUNCION=307 //ID FUNCION   
 };
 
 int yylval;
@@ -115,6 +116,7 @@ char cadena[30];
 "&&"						{ strcpy(cadena,yytext);  return  AND;  }
 "||"						{ strcpy(cadena,yytext);  return  OR;  }
 "!"							{ strcpy(cadena,yytext);  return  NEGACIONLOGICA;  }
+"="							{ strcpy(cadena,yytext);  return  ASIG;  }
 "+="						{ strcpy(cadena,yytext);  return  SUMAASIG;  }
 "-="						{ strcpy(cadena,yytext);  return  RESASIG;  }
 "*="						{ strcpy(cadena,yytext);  return  MULTASIG;  }
@@ -158,9 +160,6 @@ main(int argc, char **argv)
 		if(tok >= SI && tok <= EXPONENTE)
 			printf("\n%s	 PALABRA RESERVADA   %d", cadena, tok);
 
-		if(tok >= SI && tok <= EXPONENTE)
-			printf("\n%s	 PALABRA RESERVADA   %d", cadena, tok);
-
 
 		if(tok >= SUMA && tok <= MODULO)
 			printf("\n%s	 OPERADOR ARITMETICO   %d", cadena, tok);
@@ -170,6 +169,10 @@ main(int argc, char **argv)
 
 		if(tok >= AND && tok <= NEGACIONLOGICA)
 			printf("\n%s	 OPERADOR LOGICO   %d", cadena, tok);
+
+		if(tok >=  ASIG && tok <= DECREMENTO)
+			printf("\n%s	 OPERADOR ASIGNACION   %d", cadena, tok);	
+
 
 		if(tok==NUMEROENTERO)	
 		printf("\n%d	 int   %d", yylval, tok);
