@@ -1,51 +1,68 @@
 %{
 	#include <string.h>
 enum  {
-	
-   IF = 258 // KEYWORD O PALABRA RESERVADA SI,ENTONCES
-   ELSE = 259 // KEYWORD O PALABRA RESERVADA OTRO
-   WHILE = 260 // KEYWORD O PALABRA RESERVADA MIENTRAS
-   FOR = 261 // KEYWORD O PALABRA RESERVADA PARA HASTA
-   DO = 261 // KEYWORD O PALABRA RESERVADA HAZ
-   SCAN = 262 // KEYWORD O PALABRA RESERVADA LEER
-   PRINT = 263 // KEYWORD O PALABRA RESERVADA IMPRIMIR
-   PROGRAM = 264 // KEYWORD O PALABRA RESERVADA PROGRAMA
-   PI = 265 // KEYWORD O PALABRA RESERVADA CONSTANTE
-   INT = 266 // KEYWORD O PALABRA RESERVADA ENTERO
-   FLOAT = 267 // KEYWORD O PALABRA RESERVADA FLOTANTE
-   CHAR = 268 // KEYWORD O PALABRA RESERVADA CARACTER
-   STRING = 269 // KEYWORD O PALABRA RESERVADA CADENA
-   ARRAY = 270 // KEYWORD O PALABRA RESERVADA ARREGLO
-   FUNCTION = 271 // KEYWORD O PALABRA RESERVADA FUNCION
-   POW = 272 // KEYWORD O PALABRA RESERVADA POTENCIA
-   SQRT = 273 // KEYWORD O PALABRA RESERVADA RAIZ
-   SIN = 274 // KEYWORD O PALABRA RESERVADA SENO
-   COS = 275 // KEYWORD O PALABRA RESERVADA COSENO
-   TAN = 276 // KEYWORD O PALABRA RESERVADA TANGENTE
-   LOG = 277 // KEYWORD O PALABRA RESERVADA LOGARITMO
-
-
-
-
-     
-
-
-   // estos son los que veninan en el ejercicio del profe no los borre para no perdernos
-
-	ENTERO = 258,    // int
-	SUMA	= 259,      // Operador aritmético
-	RESTA = 260,     // Operador aritmético  
-	LEQ = 	261,     // Operador relacional
-	MAYOR = 	262,     // Operador relacional
-	IF = 263,                      // KEYWORD O PALABRA RESERVADA
-	ELSE = 264,                // KEYWORD O PALABRA RESERVADA
-	WHILE = 265,            // KEYWORD O PALABRA RESERVADA
-	FOR = 266,                 // KEYWORD O PALABRA RESERVADA
-	PROGRAM = 267,      // KEYWORD O PALABRA RESERVADA
-	PRINT = 268,            // KEYWORD O PALABRA RESERVADA
-	READ = 269,              // KEYWORD O PALABRA RESERVADA
-	ERROR = 270
+   PUNTO=248,
+   DOSPUNTOS=249,
+   PUNTOCOMA=250,
+   COMA=251,
+   PARENTESISABRE=252,
+   PARENTESISCIERRA=253,
+   CORCHETEABRE=254,
+   CORCHETECIERRA=255,
+   LLAVEABRE=256,
+   LLAVECIERRA=257,
+   SI = 258, // KEYWORD O PALABRA RESERVADA SI
+   ENTONCES = 259, // KEYWORD O PALABRA RESERVADA ENTONCE
+   OTRO = 260,// KEYWORD O PALABRA RESERVADA OTRO
+   MIENTRAS = 261, // KEYWORD O PALABRA RESERVADA MIENTRAS
+   PARA = 262, // KEYWORD O PALABRA RESERVADA PARA
+   HASTA = 263, // KEYWORD O PALABRA RESERVADA HASTA
+   HAZ = 264, // KEYWORD O PALABRA RESERVADA HAZ
+   LEER = 265, // KEYWORD O PALABRA RESERVADA LEER
+   IMPRIMIR = 266, // KEYWORD O PALABRA RESERVADA IMPRIMIR
+   PROGRAMA = 267, // KEYWORD O PALABRA RESERVADA PROGRAMA
+   CONSTANTE = 268, // KEYWORD O PALABRA RESERVADA CONSTANTE
+   ENTERO = 269, // KEYWORD O PALABRA RESERVADA ENTERO
+   FLOTANTE = 270, // KEYWORD O PALABRA RESERVADA FLOTANTE
+   CARACTER = 271, // KEYWORD O PALABRA RESERVADA CARACTER
+   CADENA = 272, // KEYWORD O PALABRA RESERVADA CADENA
+   ARREGLO = 273, // KEYWORD O PALABRA RESERVADA ARREGLO
+   FUNCION = 274, // KEYWORD O PALABRA RESERVADA FUNCION
+   POTENCIA = 275, // KEYWORD O PALABRA RESERVADA POTENCIA
+   SQRT = 276, // KEYWORD O PALABRA RESERVADA SQRT
+   SENO = 277, // KEYWORD O PALABRA RESERVADA SENO
+   COSENO=278, // KEYWORD O PALABRA RESERVADA COSENO
+   TANGENTE=279, // KEYWORD O PALABRA RESERVADA TANGENTE
+   LOG=280, // KEYWORD O PALABRA RESERVADA LOG
+   EXPONENTE=281, // KEYWORD O PALABRA RESERVADA EXP
+   SUMA=282, // Operador aritmético
+   RESTA=283, // Operador aritmético
+   MULTIPLICACION=284, // Operador aritmético
+   DIVISION=285, // Operador aritmético
+   MODULO=286, // Operador aritmético
+   MENORQUE=287, // Operador relacional
+   MAYORQUE=288, //Operador relacional
+   MENORIGUAL=289, //Operador relacional
+   MAYORIGUAL=290, //Operador relacional
+   EQUALS=291, //Operador relacional
+   NOTEQUALS=292, //Operador relacional
+   AND=293, //Operador relacional
+   OR=294, //Operador relacional
+   NEGACIONLOGICA=295, //Operador relacional
+   ASIG=296, // Operador asignacion
+   SUMAASIG=297, //Operador asignacion
+   RESASIG=298, //Operador asignacion
+   MULTASIG=299, //Operador asignacion
+   DIVASIG=300, ////Operador asignacion
+   MODASIG=301, //Operador asignacion
+   INCREMENTO=302, //Operador asignacion
+   DECREMENTO=303, //Operador asignacion
+   NUMEROENTERO=304, //NUMERO ENTERO
+   NUMEROFLOTANTE=305,//NUMERO FLOTANTE
+   IDVARIABLE=306, // ID VARIABLE
+   IDFUNCION=307 //ID FUNCION   
 };
+
 int yylval;
 char cadena[30];
 %}
@@ -53,46 +70,72 @@ char cadena[30];
 
 %%
 
-//3 OPERADORES ARITMETICOS,LOGICOS Y RELACIONALES
 
+"."							{ strcpy(cadena,yytext);  return PUNTO;}	
+":"							{ strcpy(cadena,yytext);  return DOSPUNTOS;}
+";"							{ strcpy(cadena,yytext);  return PUNTOCOMA; }
+","							{ strcpy(cadena,yytext);  return COMA; }
+"("							{ strcpy(cadena,yytext);  return PARENTESISABRE; }
+")"							{ strcpy(cadena,yytext);  return PARENTESISCIERRA; }	
+"["							{ strcpy(cadena,yytext);  return LLAVEABRE; }
+"]"							{ strcpy(cadena,yytext);  return LLAVECIERRA; }
+"if"						{ strcpy(cadena,yytext);  return SI;  }	
+"else"						{ strcpy(cadena,yytext);  return ENTONCES;  }
+"other"						{ strcpy(cadena,yytext);  return OTRO;  }
+"while"						{ strcpy(cadena,yytext);  return MIENTRAS;  }
+"for"						{ strcpy(cadena,yytext);  return PARA;  }
+"do"						{ strcpy(cadena,yytext);  return HASTA;  }
+"read"						{ strcpy(cadena,yytext);  return LEER;  }
+"print"						{ strcpy(cadena,yytext);  return IMPRIMIR;  }
+"program"					{ strcpy(cadena,yytext);  return PROGRAMA;  }
+"const"						{ strcpy(cadena,yytext);  return CONSTANTE;  }
+"int"						{ strcpy(cadena,yytext);  return ENTERO;  }
+"float"						{ strcpy(cadena,yytext);  return FLOTANTE;  }
+"char"						{ strcpy(cadena,yytext);  return CARACTER;  }	
+"String"					{ strcpy(cadena,yytext);  return CADENA;  }	
+""							{ strcpy(cadena,yytext);  return ARREGLO;  }	
+"function"					{ strcpy(cadena,yytext);  return FUNCION;  }
+"pow"						{ strcpy(cadena,yytext);  return POTENCIA;  }	
+"sqrt"						{ strcpy(cadena,yytext);  return SQRT;  }	
+"sin"						{ strcpy(cadena,yytext);  return SENO;  }	
+"cos"						{ strcpy(cadena,yytext);  return COSENO;  }	
+"tan"						{ strcpy(cadena,yytext);  return TANGENTE;  }	
+"log"						{ strcpy(cadena,yytext);  return LOG;  }
+"exp"						{ strcpy(cadena,yytext);  return EXPONENTE;  }
 "+"        					{ strcpy(cadena,yytext);  return SUMA;  }
-"/"                         { strcpy(cadena,yytext);  return DIVICION;  }
-"*"        					{ strcpy(cadena,yytext);  return MULTIPLICACION;  }
-"/"                         { strcpy(cadena,yytext);  return RESTA;  }
-"mod"        					{ strcpy(cadena,yytext);  return MODULO;  }
-"<"                         { strcpy(cadena,yytext);  return MENOR;  }
-">"         					{ strcpy(cadena,yytext);   return MAYOR;   }
-"<="       				    { strcpy(cadena,yytext);  return LEQ;  }
-">="         					{ strcpy(cadena,yytext);   return MAYORIGUAL
-"=="       				    { strcpy(cadena,yytext);  return IGUAL;  }
-"!="         					{ strcpy(cadena,yytext);   return DIFERENTE;   }
-"&&"       				    { strcpy(cadena,yytext);  return AND;  }
-"||"         					{ strcpy(cadena,yytext);   return OR;   }
-"!"       				    { strcpy(cadena,yytext);  return NEGACION;  }
+"-"          				{ strcpy(cadena,yytext);  return RESTA;  }	
+"*"							{ strcpy(cadena,yytext);  return MULTIPLICACION;  }	
+"/"							{ strcpy(cadena,yytext);  return DIVISION;  }	
+"%"							{ strcpy(cadena,yytext);  return MODULO;  }
+"<"							{ strcpy(cadena,yytext);  return MENORQUE;  }
+">"							{ strcpy(cadena,yytext);  return MAYORQUE;  }
+"<="						{ strcpy(cadena,yytext);  return  MENORIGUAL;  }
+">="						{ strcpy(cadena,yytext);  return  MAYORIGUAL;  }
+"=="						{ strcpy(cadena,yytext);  return  EQUALS;  }
+"!="						{ strcpy(cadena,yytext);  return  NOTEQUALS;  }
+"&&"						{ strcpy(cadena,yytext);  return  AND;  }
+"||"						{ strcpy(cadena,yytext);  return  OR;  }
+"!"							{ strcpy(cadena,yytext);  return  NEGACIONLOGICA;  }
+"="							{ strcpy(cadena,yytext);  return  ASIG;  }
+"+="						{ strcpy(cadena,yytext);  return  SUMAASIG;  }
+"-="						{ strcpy(cadena,yytext);  return  RESASIG;  }
+"*="						{ strcpy(cadena,yytext);  return  MULTASIG;  }
+"=/"						{ strcpy(cadena,yytext);  return  DIVASIG;  }												
+"mod="						{ strcpy(cadena,yytext);  return  MODASIG;  }						
+"++"						{ strcpy(cadena,yytext);  return  INCREMENTO;  }					
+"--"						{ strcpy(cadena,yytext);  return  DECREMENTO;  }
+[0-9]+						{ yylval = atoi(yytext); return  NUMEROENTERO;  }
+[0-9]+[.][0-9]+				{ yylval = atof(yytext);  return  NUMEROFLOTANTE;  }
+
+[\t]                     	{/*Solo ignorar */}
+[\n]						{/*Solo ignorar */}
+#.*							{/*Solo ignorar */}
 
 
-
-
-
-"+"        					{ strcpy(cadena,yytext);  return SUMA;  }
-"-"          					{ strcpy(cadena,yytext);  return RESTA;  }
-"<="       				    { strcpy(cadena,yytext);  return LEQ;  }
-">"         					{ strcpy(cadena,yytext);   return MAYOR;   }
-"if"         				    { strcpy(cadena,yytext);  return IF;  }
-"else"         			    { strcpy(cadena,yytext);  return ELSE;  }
-"while"         			{ strcpy(cadena,yytext);   return WHILE;  }
-"for"        				{ strcpy(cadena,yytext);  return FOR;  }
-"program"         	    { strcpy(cadena,yytext);  return PROGRAM;  }
-"print"                     { strcpy(cadena,yytext);  return PRINT;  }
-"read"                      { strcpy(cadena,yytext);   return READ;  }
-[0-9]+    				    { yylval = atoi(yytext);  return ENTERO;    }
-[a-zA-Z]+                { strcpy(cadena,yytext);  return ERROR;    }
-\n							{/* Solo ignorar */}
-[\t ()]                     {/*Solo ignorar */}
-
-
-
+[a-z][a-zA-Z0-9_]*  	{ strcpy(cadena,yytext);  return IDVARIABLE;  }	
+[A-Z][a-zA-Z0-9_]*			{ strcpy(cadena,yytext);  return IDFUNCION;  }
 %%
+
 
 
 main(int argc, char **argv)
@@ -108,39 +151,46 @@ main(int argc, char **argv)
 		deberá tener la información siguiente:
 		if 	id_var    263
 		*/
-		if(tok >= IF && tok <= READ)
-			printf("\n%s	 keyword   %d", cadena, tok);
-		if(tok >= SUMA && tok <= RESTA)
-			printf("\n%s	 op_arit   %d", cadena, tok);
-		if(tok == ENTERO)
-			printf("\n%d	 int   %d", yylval, tok);
-		if(tok >= LEQ && tok <= MAYOR)
-			printf("\n%s	 op_rel   %d", cadena, tok);
-		if(tok == ERROR)
-			printf("\n%s Palabra no reconocida",cadena);
-		printf("\n");
+
+
+
+		if(tok >= PUNTO && tok <= LLAVECIERRA)
+			printf("\n%s	 SIGNO PUNTUACION   %d", cadena, tok);
+		
+		if(tok >= SI && tok <= EXPONENTE)
+			printf("\n%s	 PALABRA RESERVADA   %d", cadena, tok);
+
+
+		if(tok >= SUMA && tok <= MODULO)
+			printf("\n%s	 OPERADOR ARITMETICO   %d", cadena, tok);
+
+		if(tok >= MENORQUE && tok <= NOTEQUALS)
+			printf("\n%s	 OPERADOR RELACIONAL   %d", cadena, tok);			
+
+		if(tok >= AND && tok <= NEGACIONLOGICA)
+			printf("\n%s	 OPERADOR LOGICO   %d", cadena, tok);
+
+		if(tok >=  ASIG && tok <= DECREMENTO)
+			printf("\n%s	 OPERADOR ASIGNACION   %d", cadena, tok);	
+
+
+		if(tok==NUMEROENTERO)	
+		printf("\n%d	 int   %d", yylval, tok);
+
+		if(tok==NUMEROFLOTANTE)	
+		printf("\n%f	 float   %d",yylval, tok);
+
+		if(tok == IDVARIABLE)
+			printf("\n%s IDENTIFICADOR VARIABLE",cadena);
+
+		if(tok == IDFUNCION)
+			printf("\n%s IDENTIFICADOR FUNCION",cadena);
+
+		printf("\n");	
+
+
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
